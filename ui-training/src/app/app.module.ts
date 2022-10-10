@@ -8,6 +8,10 @@ import { PermiterCalcComponent } from './permiter-calc/permiter-calc.component';
 import { AreaCalcComponent } from './area-calc/area-calc.component';
 import { PrimeNumbCalcComponent } from './prime-numb-calc/prime-numb-calc.component';
 import { ComponentChangerComponent } from './component-changer/component-changer.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,12 @@ import { ComponentChangerComponent } from './component-changer/component-changer
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

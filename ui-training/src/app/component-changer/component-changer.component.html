@@ -4,7 +4,7 @@
 
 <h4>Choose a formula</h4>
 <mat-form-field appearance="fill">
-  <mat-label>Favorite food</mat-label>
+  <mat-label>Calculation</mat-label>
   <mat-select (selectionChange)="page($event)">
     <mat-option *ngFor="let pages of Anypage" [value]="pages.type">{{pages.value}}</mat-option>
   </mat-select>

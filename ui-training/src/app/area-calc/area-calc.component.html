@@ -1,1 +1,28 @@
 <p>area-calc works!</p>
+<div>
+
+    <form [formGroup]="rectangle">
+
+        <mat-form-field appearance="fill">
+            <mat-label for="line-1">Line lenght(a)*</mat-label>
+            <input id="line-1" formControlName="line1" matInput placeholder="Line lenght(a)*">
+            <mat-error></mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="result">Result</mat-label>
+            <input id="result" formControlName="result" matInput placeholder="Result">
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="line-2">Line lenght(b)*</mat-label>
+            <input id="line-2" formControlName="line2" matInput placeholder="Line lenght(b)*">
+        </mat-form-field>
+
+    </form>
+</div>
+
+
+<div>{{rectangle.get('line1')?.value}}</div>

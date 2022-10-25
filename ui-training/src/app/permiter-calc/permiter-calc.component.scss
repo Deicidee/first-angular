@@ -1,0 +1,32 @@
+.rectangle {
+    background-color: lightgray;
+    margin: 10px 0;
+    margin-bottom: 70px;
+    max-width: 750px;
+    padding: 15px;
+}
+
+.rectangle_f {
+    display: grid;
+    grid-template-areas: "line1 line2" "result result";
+    grid-template-rows: auto auto;
+    grid-row-gap: 10px;
+    grid-column-gap: 100px;
+    grid-column: 90px;
+}
+
+.triangle {
+    background-color: lightgray;
+    margin-bottom: 70px;
+    max-width: 750px;
+    padding: 15px;
+}
+
+.triangle_f {
+    display: grid;
+    grid-template-areas: "line1 line2" "line3 result";
+    grid-template-rows: auto auto;
+    grid-row-gap: 10px;
+    grid-column-gap: 100px;
+    grid-column: 90px;
+}

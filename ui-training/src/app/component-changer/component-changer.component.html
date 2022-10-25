@@ -1,11 +1,9 @@
-<p>component-changer works!</p>
-:)
-
-
-<h4>Choose a formula</h4>
+<h4></h4>
+<form class="compchang">
 <mat-form-field appearance="fill">
   <mat-label>Choose a formula</mat-label>
   <mat-select (selectionChange)="page($event)" matInput placeholder="Choose a formula">
     <mat-option *ngFor="let pages of Anypage" [value]="pages.type">{{pages.value}}</mat-option>
   </mat-select>
 </mat-form-field>
+</form>

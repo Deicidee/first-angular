@@ -1,28 +1,63 @@
-<p>area-calc works!</p>
-<div>
+<div class="rectangle">
 
-    <form [formGroup]="rectangle">
+    <h1>Rectangle:</h1>
+
+    <form class="rectangle_f" [formGroup]="rectangle">
 
         <mat-form-field appearance="fill">
-            <mat-label for="line-1">Line lenght(a)*</mat-label>
-            <input id="line-1" formControlName="line1" matInput placeholder="Line lenght(a)*">
-            <mat-error></mat-error>
+            <mat-label for="line-1">Line lenght(a)</mat-label>
+            <input id="line-1" formControlName="line1" matInput placeholder="Line lenght(a)">
+            <mat-error *ngIf="rectangle.get('line1')?.hasError('required')">Number is required</mat-error>
+            <mat-error *ngIf="rectangle.get('line1')?.hasError('pattern')">Enter only number</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label for="result">Result</mat-label>
-            <input id="result" formControlName="result" matInput placeholder="Result">
+            <input readonly="all" id="result" formControlName="result" matInput placeholder="Result">
         </mat-form-field>
 
-        <br>
-
         <mat-form-field appearance="fill">
-            <mat-label for="line-2">Line lenght(b)*</mat-label>
-            <input id="line-2" formControlName="line2" matInput placeholder="Line lenght(b)*">
+            <mat-label for="line-2">Line lenght(b)</mat-label>
+            <input id="line-2" formControlName="line2" matInput placeholder="Line lenght(b)">
+            <mat-error *ngIf="rectangle.get('line2')?.hasError('required')">Number is required</mat-error>
+            <mat-error *ngIf="rectangle.get('line2')?.hasError('pattern')">Enter only number</mat-error>
         </mat-form-field>
 
     </form>
 </div>
 
+<div class="triangle">
 
-<div>{{rectangle.get('line1')?.value}}</div>
+    <h1>Triangle:</h1>
+
+    <form class="triangle_f" [formGroup]="triangle">
+        <mat-form-field appearance="fill">
+            <mat-label for="line-1">Line lenght(a)</mat-label>
+            <input id="line-1" formControlName="line1" matInput placeholder="Line lenght(a)">
+            <mat-error *ngIf="rectangle.get('line1')?.hasError('required')">Number is required</mat-error>
+            <mat-error *ngIf="rectangle.get('line1')?.hasError('pattern')">Enter only number</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="line-2">Line lenght(b)</mat-label>
+            <input id="line-2" formControlName="line2" matInput placeholder="Line lenght(b)">
+            <mat-error *ngIf="rectangle.get('line2')?.hasError('required')">Number is required</mat-error>
+            <mat-error *ngIf="rectangle.get('line2')?.hasError('pattern')">Enter only number</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="line-3">Line lenght(c)</mat-label>
+            <input id="line-3" formControlName="line3" matInput placeholder="Line lenght(c)">
+            <mat-error *ngIf="rectangle.get('line3')?.hasError('required')">Number is required</mat-error>
+            <mat-error *ngIf="rectangle.get('line3')?.hasError('pattern')">Enter only number</mat-error>
+            <mat-error></mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label for="result">Result</mat-label>
+            <input readonly="all" id="result" formControlName="result" matInput placeholder="Result">
+            <mat-error *ngIf="this.triangle.get('result')?.hasError('invalidLenght')">Invalid line lenght</mat-error>
+        </mat-form-field>
+
+    </form>
+</div>

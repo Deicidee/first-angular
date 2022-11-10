@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { __values } from 'tslib';
 
 interface Calculators {
   value: string;
@@ -20,9 +18,7 @@ enum AllPages {
   styleUrls: ['./component-changer.component.scss']
 })
 
-export class ComponentChangerComponent implements OnInit {
-
-
+export class ComponentChangerComponent {
   Anypage: Calculators[] = [
     { value: 'Area calculation', type: AllPages.Area },
     { value: 'Permit calculation', type: AllPages.Permit },
@@ -31,16 +27,8 @@ export class ComponentChangerComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
-  change(): void {
-    this.router.navigateByUrl("/area");
-  }
-
   page($event: any): void {
     console.log($event.value)
     this.router.navigateByUrl(`/${$event.value}`);
   }
-
 }

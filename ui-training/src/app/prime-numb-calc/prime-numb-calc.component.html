@@ -7,13 +7,13 @@
         <mat-form-field appearance="fill">
             <mat-label for="line-1">Your number</mat-label>
             <input id="line-1" formControlName="line1" matInput placeholder="Your number">
-            <mat-error *ngIf="primeNumber.get('line1')?.hasError('pattern')">Hibás szám felsorolás pléda:1,2,3:56k</mat-error>
+            <mat-error *ngIf="primeNumber.get('line1')?.hasError('pattern')">Hibás szám felsorolás példa:1,2,3,4</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label for="prime">Prime</mat-label>
             <input readonly="all" id="prime" formControlName="prime" matInput placeholder="Prime">
-            <mat-error *ngIf="primeNumber.get('prime')?.hasError('pattern')">Hibás szám felsorolás pléda:1,2,3:56k</mat-error>
+            <mat-error *ngIf="primeNumber.get('prime')?.hasError('pattern')">Hibás szám felsorolás példa:1,2,3,4</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">

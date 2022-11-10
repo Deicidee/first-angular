@@ -6,7 +6,7 @@
     padding: 15px;
 }
 
-.rectangle_f {
+.rectangle_form {
     display: grid;
     grid-template-areas: "line1 line2" "result result";
     grid-template-rows: auto auto;
@@ -22,7 +22,7 @@
     padding: 15px;
 }
 
-.triangle_f {
+.triangle_form {
     display: grid;
     grid-template-areas: "line1 line2" "line3 result";
     grid-template-rows: auto auto;

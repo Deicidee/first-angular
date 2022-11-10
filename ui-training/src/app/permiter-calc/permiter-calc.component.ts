@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NG_VALIDATORS, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { debounceTime, merge } from 'rxjs';
 
 export function permitLenghtValidator(): ValidatorFn {
   const validator = (control: AbstractControl) => {
@@ -36,54 +37,74 @@ export class PermiterCalcComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.rectangle.get('line1')?.valueChanges.subscribe((x) => {
-      this.result_rect();
-    })
-    this.rectangle.get('line2')?.valueChanges.subscribe((y) => {
-      this.result_rect();
-    })
-    this.triangle.get('line1')?.valueChanges.subscribe(() => {
-      this.result_tri()
-    })
-    this.triangle.get('line2')?.valueChanges.subscribe(() => {
-      this.result_tri()
-    })
-    this.triangle.get('line3')?.valueChanges.subscribe(() => {
-      this.result_tri()
-    })
+    merge(
+      this.getRectangleFormControl('line1').valueChanges,
+      this.getRectangleFormControl('line2').valueChanges
+    ).pipe(
+      debounceTime(500)
+    ).subscribe((x) => {
+      this.calculateRetangleResult();
+    });
+    merge(
+      this.getTriangleFormControl('line1').valueChanges,
+      this.getTriangleFormControl('line2').valueChanges,
+      this.getTriangleFormControl('line3').valueChanges
+    ).pipe(
+      debounceTime(500)
+    ).subscribe(() => {
+      this.calculateTriangleResult();
+    });
 
   }
 
-  result_rect() {
-    const line_a = Number(this.rectangle.get('line1')?.value)
-    const line_b = Number(this.rectangle.get('line2')?.value)
-    const permit = (line_a * 2) + (line_b * 2)
+  calculateRetangleResult() {
+    const line_a = Number(this.getRectangleFormValue('line1'))
+    const line_b = Number(this.getRectangleFormValue('line2'))
+    const permit = (line_a * 2) + (line_b * 2);
     if (isNaN(line_a)) {
-      return this.triangle.get('result')?.setValue('')
+      return this.getRectangleFormControl('result').setValue('')
     } else if (isNaN(line_b)) {
-      return this.triangle.get('result')?.setValue('')
-    } else if (line_a > 0 && line_b > 0){
-      this.rectangle.get('result')?.markAsTouched()
-    this.rectangle.get('result')?.setValue(`${permit}`)
-  }
-}
-
-  result_tri() {
-    const line_a = Number(this.triangle.get('line1')?.value)
-    const line_b = Number(this.triangle.get('line2')?.value)
-    const line_c = Number(this.triangle.get('line3')?.value)
-    const permit = line_a + line_b + line_c
-
-    if (isNaN(line_a)) {
-      return this.triangle.get('result')?.setValue('')
-    } else if (isNaN(line_b)) {
-      return this.triangle.get('result')?.setValue('')
-    } else if (isNaN(line_c)) {
-      return this.triangle.get('result')?.setValue('')
-    } else if (line_a > 0 && line_b > 0 && line_c > 0) {
-      this.triangle.get('result')?.markAsTouched()
-      this.triangle.get('result')?.setValue(`${permit}`)
+      return this.getRectangleFormControl('result').setValue('')
+    } else if (line_a > 0 && line_b > 0) {
+      this.getRectangleFormControl('result').markAsTouched()
+      this.getRectangleFormControl('result').setValue(`${permit}`)
     }
+  }
+
+  calculateTriangleResult() {
+    const line_a = Number(this.getTriangleFormValue('line1'))
+    const line_b = Number(this.getTriangleFormValue('line2'))
+    const line_c = Number(this.getTriangleFormValue('line3'))
+    const permit = line_a + line_b + line_c;
+
+    if (isNaN(line_a)) {
+      return this.getTriangleFormControl('result').setValue('')
+    } else if (isNaN(line_b)) {
+      return this.getTriangleFormControl('result').setValue('')
+    } else if (isNaN(line_c)) {
+      return this.getTriangleFormControl('result').setValue('')
+    } else if (line_a > 0 && line_b > 0 && line_c > 0) {
+      this.getTriangleFormControl('result').markAsTouched()
+      this.getTriangleFormControl('result').setValue(`${permit}`)
+    }
+  }
+
+  private getRectangleFormValue(controlName: string): string {
+    const rectangleLineControl = this.getRectangleFormControl(controlName)
+    return rectangleLineControl ? rectangleLineControl.value : ''
+  }
+
+  private getRectangleFormControl(controlName: string): AbstractControl<string> {
+    return this.rectangle.get(controlName) as AbstractControl<string>
+  }
+
+  private getTriangleFormValue(controlName: string): string {
+    const triangleLineControl = this.getTriangleFormControl(controlName)
+    return triangleLineControl ? triangleLineControl.value : ''
+  }
+
+  private getTriangleFormControl(controlName: string): AbstractControl<string> {
+    return this.triangle.get(controlName) as AbstractControl<string>
   }
 
 }

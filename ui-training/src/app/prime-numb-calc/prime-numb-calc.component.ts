@@ -1,6 +1,5 @@
-import { Component, KeyValueDiffers, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NG_VALIDATORS, ValidatorFn, AbstractControl } from '@angular/forms';
-import { ObjectUnsubscribedError } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 export function wrongNumberUse(): ValidatorFn {
   const validator = (control: AbstractControl) => {
@@ -35,8 +34,6 @@ export class PrimeNumbCalcComponent implements OnInit {
       if (x) {
         return this.primeNumbes_s()
       }
-
-
     })
   }
 

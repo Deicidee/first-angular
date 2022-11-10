@@ -1,17 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-
-export function wrongNumberUse(): ValidatorFn {
-  const validator = (control: AbstractControl) => {
-    const prime_line1 = control.parent?.get('line1')?.value
-
-    if (prime_line1) {
-      return { 'wrongNumberUse': true }
-    }
-    return null;
-  }
-  return validator;
-}
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-prime-numb-calc',
@@ -26,45 +15,55 @@ export class PrimeNumbCalcComponent implements OnInit {
     notPrime: new FormControl(''),
   });
 
-
   constructor() { }
 
   ngOnInit(): void {
-    this.primeNumber.get('line1')?.valueChanges.subscribe((x) => {
+    this.getPrimeNumberFormControl('line1').valueChanges.pipe(
+      debounceTime(500)
+    ).subscribe((x) => {
       if (x) {
-        return this.primeNumbes_s()
+        return this.calculatePrimeNumberDecision()
       }
     })
   }
 
-  primeNumbes_s() {
-    var prime = this.primeNumber.get('line1')?.value
-    const calculate = prime?.split(",")
-    const primeArray: any[] = []
-    const nonPrimeArray: any[] = []
-    calculate?.forEach((z) => {
-      const szam = Number(z)
-      let kutyaFlag = true;
-      if (szam == 1) {
-        kutyaFlag = false
+  calculatePrimeNumberDecision() {
+    const rawNumbers = this.getPrimeNumberFormValue('line1').split(",");
+    const primeArray: any[] = [];
+    const nonPrimeArray: any[] = [];
+
+    rawNumbers.forEach((rawNumber:string) => {
+      let primeNumberDecision = true;
+      const number = Number(rawNumber);
+
+      if (number == 1) {
+        primeNumberDecision = false
       }
-      for (let index = 2; index < szam; index++) {
-        if (szam % index == 0) {
-          kutyaFlag = false
+      for (let index = 2; index < number; index++) {
+        if (number % index == 0) {
+          primeNumberDecision = false
           break;
         }
       }
-      if (kutyaFlag) {
-        primeArray.push(z)
+      if (primeNumberDecision) {
+        primeArray.push(rawNumber)
       } else {
-        nonPrimeArray.push(z)
+        nonPrimeArray.push(rawNumber)
       }
     })
-    this.primeNumber.get('prime')?.markAsTouched()
-    this.primeNumber.get('line1')?.markAsTouched()
-    this.primeNumber.get('prime')?.setValue(primeArray?.join(","))
-    this.primeNumber.get('notPrime')?.setValue(nonPrimeArray?.join(","))
+    this.getPrimeNumberFormControl('prime').markAsTouched()
+    this.getPrimeNumberFormControl('line1').markAsTouched()
+    this.getPrimeNumberFormControl('prime').setValue(primeArray.join(","))
+    this.getPrimeNumberFormControl('notPrime').setValue(nonPrimeArray.join(","))
+  }
 
+  private getPrimeNumberFormValue(controlName: string): string {
+    const primeNumberLineControl = this.getPrimeNumberFormControl(controlName)
+    return primeNumberLineControl ? primeNumberLineControl.value : ''
+  }
+
+  private getPrimeNumberFormControl(controlName: string): AbstractControl<string> {
+    return this.primeNumber.get(controlName) as AbstractControl<string>
   }
 
 }

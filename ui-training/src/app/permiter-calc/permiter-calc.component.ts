@@ -58,32 +58,33 @@ export class PermiterCalcComponent implements OnInit {
   }
 
   calculateRetangleResult() {
-    const line_a = Number(this.getRectangleFormValue('line1'))
-    const line_b = Number(this.getRectangleFormValue('line2'))
-    const permit = (line_a * 2) + (line_b * 2);
-    if (isNaN(line_a)) {
+    const lineA = Number(this.getRectangleFormValue('line1'))
+    const lineB = Number(this.getRectangleFormValue('line2'))
+    const permit = (lineA * 2) + (lineB * 2);
+
+    if (isNaN(lineA)) {
       return this.getRectangleFormControl('result').setValue('')
-    } else if (isNaN(line_b)) {
+    } else if (isNaN(lineB)) {
       return this.getRectangleFormControl('result').setValue('')
-    } else if (line_a > 0 && line_b > 0) {
+    } else if (lineA > 0 && lineB > 0) {
       this.getRectangleFormControl('result').markAsTouched()
       this.getRectangleFormControl('result').setValue(`${permit}`)
     }
   }
 
   calculateTriangleResult() {
-    const line_a = Number(this.getTriangleFormValue('line1'))
-    const line_b = Number(this.getTriangleFormValue('line2'))
-    const line_c = Number(this.getTriangleFormValue('line3'))
-    const permit = line_a + line_b + line_c;
+    const lineA = Number(this.getTriangleFormValue('line1'))
+    const lineB = Number(this.getTriangleFormValue('line2'))
+    const lineC = Number(this.getTriangleFormValue('line3'))
+    const permit = lineA + lineB + lineC;
 
-    if (isNaN(line_a)) {
+    if (isNaN(lineA)) {
       return this.getTriangleFormControl('result').setValue('')
-    } else if (isNaN(line_b)) {
+    } else if (isNaN(lineB)) {
       return this.getTriangleFormControl('result').setValue('')
-    } else if (isNaN(line_c)) {
+    } else if (isNaN(lineC)) {
       return this.getTriangleFormControl('result').setValue('')
-    } else if (line_a > 0 && line_b > 0 && line_c > 0) {
+    } else if (lineA > 0 && lineB > 0 && lineC > 0) {
       this.getTriangleFormControl('result').markAsTouched()
       this.getTriangleFormControl('result').setValue(`${permit}`)
     }
